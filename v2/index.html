@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Da-In Lee | AI/ML Engineer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f8f9fc;
+      --bg3: #f1f3f8;
+      --border: #e4e7ef;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --accent2: #059669;
+      --red: #dc2626;
+      --yellow: #d97706;
+      --radius: 12px;
+      --max-w: 1000px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 54px;
+    }
+    nav .brand { font-weight: 700; font-size: 14px; color: var(--text); text-decoration: none; }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul a { text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 500; transition: color 0.15s; }
+    nav ul a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      max-width: var(--max-w); margin: 0 auto; padding: 96px 28px 80px;
+    }
+    .hero-label {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); background: rgba(79,142,247,0.12);
+      border: 1px solid rgba(79,142,247,0.3);
+      border-radius: 20px; padding: 4px 12px; margin-bottom: 20px;
+    }
+    #hero h1 {
+      font-size: 52px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+      color: var(--text);
+    }
+    #hero h1 span { color: var(--accent); }
+    #hero .tagline {
+      margin-top: 16px; font-size: 17px; color: var(--muted); max-width: 560px; line-height: 1.6;
+    }
+    .hero-links {
+      margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      text-decoration: none; transition: all 0.15s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #ffffff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-ghost {
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
+
+    .hero-stats {
+      margin-top: 52px;
+      display: flex; gap: 40px; flex-wrap: wrap;
+      padding-top: 32px; border-top: 1px solid var(--border);
+    }
+    .stat-num { font-size: 28px; font-weight: 800; color: var(--text); }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── SECTION WRAPPER ── */
+    .section { padding: 72px 28px; max-width: var(--max-w); margin: 0 auto; }
+    .section-header { margin-bottom: 36px; }
+    .section-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 8px;
+    }
+    .section-title { font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+    .section-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
+
+    /* ── PROJECT CARDS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .card-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .card-category {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 20px;
+    }
+    .cat-national { background: rgba(79,142,247,0.15); color: var(--accent); }
+    .cat-research { background: rgba(56,217,169,0.15); color: var(--accent2); }
+    .cat-infra { background: rgba(251,191,36,0.15); color: var(--yellow); }
+
+    .card-org { font-size: 11px; color: var(--muted); }
+
+    .card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; line-height: 1.35; }
+    .card-desc { font-size: 13px; color: #4b5563; line-height: 1.6; margin-bottom: 16px; flex: 1; }
+
+    .card-metrics {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      padding: 12px 14px;
+      background: var(--bg3); border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .metric { text-align: center; }
+    .metric-val { font-size: 18px; font-weight: 800; color: var(--accent); line-height: 1; }
+    .metric-val.green { color: var(--accent2); }
+    .metric-val.yellow { color: var(--yellow); }
+    .metric-label { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px; font-weight: 500;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 6px; padding: 3px 9px;
+    }
+
+    /* ── ABOUT ── */
+    #about { border-top: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .about-text { font-size: 15px; color: #4b5563; line-height: 1.75; }
+    .about-text p + p { margin-top: 14px; }
+    .skills-groups { display: flex; flex-direction: column; gap: 16px; }
+    .skill-group-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 7px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag {
+      font-size: 12px; font-weight: 500;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); border-radius: 6px; padding: 4px 10px;
+    }
+
+    /* ── PUBLICATIONS ── */
+    #publications { border-top: 1px solid var(--border); }
+    .pub-list { display: flex; flex-direction: column; gap: 12px; }
+    .pub-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px;
+      display: flex; gap: 16px; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .pub-card:hover { border-color: var(--border); }
+    .pub-year {
+      font-size: 11px; font-weight: 700; color: var(--muted);
+      white-space: nowrap; padding-top: 2px; min-width: 40px;
+    }
+    .pub-body { flex: 1; }
+    .pub-journal {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--accent); margin-bottom: 4px;
+    }
+    .pub-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.45; }
+    .pub-role {
+      display: inline-block; margin-top: 6px;
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 2px 7px; border-radius: 4px;
+    }
+    .pub-role.first { background: rgba(56,217,169,0.15); color: var(--accent2); }
+    .pub-role.co { background: var(--bg3); color: var(--muted); }
+
+    /* ── EXPERIENCE ── */
+    #experience { border-top: 1px solid var(--border); }
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .tl-item {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: 0 28px; padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-meta { padding-top: 2px; }
+    .tl-date { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .tl-org { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .tl-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .tl-body ul { padding-left: 16px; }
+    .tl-body li { font-size: 13px; color: #4b5563; margin-bottom: 5px; line-height: 1.55; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center; padding: 36px 28px;
+      color: var(--muted); font-size: 12px;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      #hero h1 { font-size: 34px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .tl-item { grid-template-columns: 1fr; }
+      .tl-meta { margin-bottom: 6px; }
+      nav ul { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <a class="brand" href="#hero">Da-In Lee</a>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#publications">Papers</a></li>
+      <li><a href="#experience">Experience</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-label">AI / ML Engineer · Medical Imaging</div>
+  <h1>Building AI that<br /><span>works in clinics.</span></h1>
+  <p class="tagline">
+    4+ years developing deep learning models for medical imaging — from national R&amp;D programs
+    to hospital deployments in Korea and Singapore.
+  </p>
+  <div class="hero-links">
+    <a class="btn btn-primary" href="mailto:dainee96@gmail.com">Contact me</a>
+    <a class="btn btn-ghost" href="https://linkedin.com/in/dain-lee-686a6021a" target="_blank">LinkedIn</a>
+    <a class="btn btn-ghost" href="#projects">View Projects ↓</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Years in Medical AI</div>
+    </div>
+    <div>
+      <div class="stat-num">7</div>
+      <div class="stat-label">SCI Publications</div>
+    </div>
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">International Patents</div>
+    </div>
+    <div>
+      <div class="stat-num">89.8%</div>
+      <div class="stat-label">Best AUC Achieved</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section" id="projects">
+  <div class="section-header">
+    <div class="section-tag">Featured Work</div>
+    <div class="section-title">Projects</div>
+    <div class="section-sub">End-to-end AI solutions across medical imaging and clinical data</div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Liver Cancer -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-category cat-national">National R&D · NIPA</span>
+        <span class="card-org">Medical IP</span>
+      </div>
+      <div class="card-title">Liver Cancer Occurrence &amp; Recurrence Prediction</div>
+      <div class="card-desc">
+        Multimodal fusion model combining CT segmentation and clinical data for liver cancer prediction.
+        Developed automated missing value imputation pipeline. Validated internationally at National
+        University Hospital, Singapore. Currently in MFDS clinical trial.
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><div class="metric-val green">81.8%</div><div class="metric-label">C-index</div></div>
+        <div class="metric"><div class="metric-val">80.7%</div><div class="metric-label">AUC (internal)</div></div>
+        <div class="metric"><div class="metric-val yellow">72%</div><div class="metric-label">AUC (NUH SG)</div></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag">UNet</span><span class="tag">EfficientNet</span><span class="tag">XGBoost</span>
+        <span class="tag">CT Segmentation</span><span class="tag">Transfer Learning</span><span class="tag">PyTorch</span>
+      </div>
+    </div>
+
+    <!-- Cerebrovascular -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-category cat-national">National R&D · Ministry of Health</span>
+        <span class="card-org">Medical IP</span>
+      </div>
+      <div class="card-title">Cerebrovascular Event Prediction (Medical Twin)</div>
+      <div class="card-desc">
+        3D encoder model using MRA brain images with self-supervised DINO learning, integrated with
+        XGBoost on clinical tabular data for multimodal cerebrovascular event prediction.
+        Applied in hospital pilot testing.
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><div class="metric-val green">89.8%</div><div class="metric-label">AUC</div></div>
+        <div class="metric"><div class="metric-val">3D MRA</div><div class="metric-label">Modality</div></div>
+        <div class="metric"><div class="metric-val yellow">Pilot</div><div class="metric-label">Hospital Testing</div></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag">DINO</span><span class="tag">Self-supervised</span><span class="tag">XGBoost</span>
+        <span class="tag">3D Encoder</span><span class="tag">MRA</span><span class="tag">Multimodal</span>
+      </div>
+    </div>
+
+    <!-- COVID Prognosis -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-category cat-national">National R&D · Ministry of Health</span>
+        <span class="card-org">Medical IP</span>
+      </div>
+      <div class="card-title">COVID-19 ER Prognosis Prediction (CDSS)</div>
+      <div class="card-desc">
+        Applied Pix2PixHD image enhancement to improve X-ray lesion visibility before classification,
+        significantly boosting model performance. Integrated multimodal imaging and clinical data
+        pipelines for emergency department prognosis prediction.
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><div class="metric-val green">74.7%</div><div class="metric-label">AUC</div></div>
+        <div class="metric"><div class="metric-val">+13%</div><div class="metric-label">AUC Improvement</div></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Pix2PixHD</span><span class="tag">X-ray</span><span class="tag">GAN</span>
+        <span class="tag">Image Enhancement</span><span class="tag">Clinical Data</span>
+      </div>
+    </div>
+
+    <!-- De-identification -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-category cat-infra">Infrastructure · Production</span>
+        <span class="card-org">Medical IP</span>
+      </div>
+      <div class="card-title">Medical Image De-Identification Pipeline (AIDelete)</div>
+      <div class="card-desc">
+        Built AWS SageMaker-based batch pipeline to anonymize DICOM headers and pixel data using
+        Tesseract OCR, inpainting, and blurring. Integrated CloudWatch monitoring and SNS alerts.
+        HIPAA-compliant, production-deployed for healthcare data compliance.
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><div class="metric-val green">~50%</div><div class="metric-label">Processing Time Reduction</div></div>
+        <div class="metric"><div class="metric-val yellow">Prod</div><div class="metric-label">Deployment Status</div></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag">AWS SageMaker</span><span class="tag">DICOM</span><span class="tag">HIPAA</span>
+        <span class="tag">Tesseract OCR</span><span class="tag">CloudWatch</span><span class="tag">Docker</span>
+      </div>
+    </div>
+
+    <!-- Aortic Dissection -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-category cat-research">Research</span>
+        <span class="card-org">Hallym University</span>
+      </div>
+      <div class="card-title">Aortic Dissection Detection on Non-Contrast CT</div>
+      <div class="card-desc">
+        YOLOv4 + U-Net pipeline for detecting aortic dissection and intramural hematoma on
+        non-contrast chest CT. Enables rapid triage in emergency surgical cases without
+        requiring contrast agents. Published in Journal of Clinical Medicine.
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><div class="metric-val green">96.21%</div><div class="metric-label">mAP</div></div>
+        <div class="metric"><div class="metric-val">Non-contrast CT</div><div class="metric-label">Modality</div></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag">YOLOv4</span><span class="tag">U-Net</span><span class="tag">CT</span>
+        <span class="tag">Object Detection</span><span class="tag">Segmentation</span>
+      </div>
+    </div>
+
+    <!-- COVID RT-PCR -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-category cat-research">Research · Published</span>
+        <span class="card-org">Hallym University</span>
+      </div>
+      <div class="card-title">Early COVID-19 Diagnosis from RT-PCR Time-Series</div>
+      <div class="card-desc">
+        LSTM and Transformer-based model for early COVID-19 diagnosis using RT-PCR fluorescence
+        time-series data. Enables positive/negative prediction within 24 amplification cycles,
+        cutting testing time significantly. Published in Scientific Reports and Viruses.
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><div class="metric-val green">93.2%</div><div class="metric-label">AUC</div></div>
+        <div class="metric"><div class="metric-val">24</div><div class="metric-label">Cycles (early detect)</div></div>
+      </div>
+      <div class="card-tags">
+        <span class="tag">LSTM</span><span class="tag">Transformer</span><span class="tag">Time-series</span>
+        <span class="tag">RT-PCR</span><span class="tag">TensorFlow</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <div class="section-header">
+    <div class="section-tag">Background</div>
+    <div class="section-title">About Me</div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm an AI/ML Engineer based in Seoul with 4+ years of experience turning medical imaging
+        research into production-ready clinical tools. I work across the full stack — from model
+        architecture and training to cloud pipeline engineering and international clinical validation.
+      </p>
+      <p>
+        My work spans CT, MRI, and X-ray modalities across cardiovascular, oncology, and infectious
+        disease domains. I've delivered AI solutions under Korea's national healthcare R&amp;D programs
+        (Ministry of Health &amp; Welfare, NIPA) and validated models in real-world clinical settings
+        including National University Hospital in Singapore.
+      </p>
+      <p>
+        I hold an M.S. in Convergence Software from Hallym University, have co-authored 7 SCI-level
+        papers, and hold 3 international patents (KR/EU/US) in medical imaging AI.
+      </p>
+    </div>
+    <div class="skills-groups">
+      <div>
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Linux / Shell</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">OpenCV</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Cloud & MLOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS SageMaker</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">MLflow</span>
+          <span class="skill-tag">CloudWatch</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">Specializations</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Medical Imaging</span>
+          <span class="skill-tag">DICOM Processing</span>
+          <span class="skill-tag">Transfer Learning</span>
+          <span class="skill-tag">Multimodal Fusion</span>
+          <span class="skill-tag">LLM / RAG</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLICATIONS -->
+<div class="section" id="publications">
+  <div class="section-header">
+    <div class="section-tag">Research</div>
+    <div class="section-title">Publications</div>
+    <div class="section-sub">SCI-level peer-reviewed journals</div>
+  </div>
+  <div class="pub-list">
+
+    <div class="pub-card">
+      <div class="pub-year">2025</div>
+      <div class="pub-body">
+        <div class="pub-journal">World Neurosurgery</div>
+        <div class="pub-title">Developing Deep Learning–Based Cerebral Ventricle Auto-Segmentation System and Clinical Application for the Evaluation of Ventriculomegaly</div>
+        <span class="pub-role co">Co-Author</span>
+      </div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-year">2025</div>
+      <div class="pub-body">
+        <div class="pub-journal">European Radiology</div>
+        <div class="pub-title">Deep learning for automatic volumetric bowel segmentation on body CT images</div>
+        <span class="pub-role co">Co-Author</span>
+      </div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-year">2024</div>
+      <div class="pub-body">
+        <div class="pub-journal">Journal of Clinical Medicine</div>
+        <div class="pub-title">Detection of Aortic Dissection and Intramural Hematoma in Non-Contrast Chest Computed Tomography Using a YOLO-Based Deep Learning Model</div>
+        <span class="pub-role co">Co-Author</span>
+      </div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-year">2023</div>
+      <div class="pub-body">
+        <div class="pub-journal">Viruses</div>
+        <div class="pub-title">Comparison of the Diagnostic Performance of Deep Learning Algorithms for Reducing the Time Required for COVID-19 RT–PCR Testing</div>
+        <span class="pub-role co">Co-Author</span>
+      </div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-year">2022</div>
+      <div class="pub-body">
+        <div class="pub-journal">KIISE Transactions on Computing Practices</div>
+        <div class="pub-title">Utilization of LSTM Auto-Encoder for Duct Void Detection inside the PSC Box Girder Bridge</div>
+        <span class="pub-role first">First Author</span>
+      </div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-year">2022</div>
+      <div class="pub-body">
+        <div class="pub-journal">Applied Sciences</div>
+        <div class="pub-title">Utilization of Unsupervised Machine Learning for Detection of Duct Voids inside PSC Box Girder Bridges</div>
+        <span class="pub-role first">First Author</span>
+      </div>
+    </div>
+
+    <div class="pub-card">
+      <div class="pub-year">2022</div>
+      <div class="pub-body">
+        <div class="pub-journal">Scientific Reports</div>
+        <div class="pub-title">The application of a deep learning system developed to reduce the time for RT-PCR in COVID-19 detection</div>
+        <span class="pub-role co">Co-Author</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="section" id="experience">
+  <div class="section-header">
+    <div class="section-tag">Career</div>
+    <div class="section-title">Experience</div>
+  </div>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <div class="tl-date">09/2022 – Present</div>
+        <div class="tl-org">Medical IP, Seoul</div>
+      </div>
+      <div class="tl-body">
+        <div class="tl-title">AI Researcher</div>
+        <ul>
+          <li>Developed multimodal deep learning models (UNet, YOLO, EfficientNet, DINO) for CT, MRI, and X-ray across oncology and cardiovascular domains</li>
+          <li>Built and deployed AWS SageMaker pipelines for large-scale DICOM anonymization (~50% processing time reduction)</li>
+          <li>Conducted international clinical validation at NUH Singapore; mitigated domain-shift quality gaps</li>
+          <li>Integrated ML models into C++-based AI analysis platform with cross-functional software engineering team</li>
+          <li>Prepared regulatory documentation for MFDS review; collaborated directly with clinicians in Korea and Singapore</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <div class="tl-date">02/2020 – 08/2022</div>
+        <div class="tl-org">Hallym University, Chuncheon</div>
+      </div>
+      <div class="tl-body">
+        <div class="tl-title">Graduate Student Researcher · NLP Lab</div>
+        <ul>
+          <li>Built LSTM/Transformer model for COVID-19 diagnosis from RT-PCR time-series (AUC 93.2%)</li>
+          <li>Developed YOLOv4 + U-Net aortic dissection detection pipeline (mAP 96.21%)</li>
+          <li>Designed LSTM &amp; CNN AutoEncoders for structural anomaly detection — Best Presentation at KCC 2021</li>
+          <li>Published 3 first/co-author papers in SCI-level journals during M.S. program</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    Da-In Lee &nbsp;·&nbsp;
+    <a href="mailto:dainee96@gmail.com">dainee96@gmail.com</a> &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/dain-lee-686a6021a" target="_blank">LinkedIn</a> &nbsp;·&nbsp;
+    Seoul, Korea
+  </div>
+  <div style="margin-top:8px;">© 2026 Da-In Lee</div>
+</footer>
+
+</body>
+</html>
